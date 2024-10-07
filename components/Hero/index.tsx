@@ -26,7 +26,7 @@ const Hero = () => {
               </h1>
               <p>
                 AI-generated websites, tailored to your needs. Simple, powerful,
-                and creative – build your website in minutes.
+                and creative – build your website in minutes efficiently .
               </p>
 
               <div className="mt-10">
