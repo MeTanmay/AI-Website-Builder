@@ -151,19 +151,19 @@ const Header = () => {
             </ul>
           </nav>
 
-          <div className="mt-7 flex items-center gap-6 xl:mt-0">
+          <div className="mt-7 flex items-center gap-3 xl:mt-0">
             <ThemeToggler />
 
             <Link
               href="/auth/signin"
-              className="text-regular font-medium text-waterloo hover:text-primary"
+              className="  text-regular font-medium rounded-full px-6 py-2.5 text-waterloo hover:text-white  hover:bg-primary"
             >
               Sign In
             </Link>
 
             <Link
               href="/auth/signup"
-              className="flex items-center justify-center rounded-full bg-primary px-7.5 py-2.5 text-regular text-white duration-300 ease-in-out hover:bg-primaryho"
+              className="rounded-full hover:bg-primary px-6 py-2.5 text-regular text-waterloo ease-in-out hover:text-white"
             >
               Sign Up
             </Link>
