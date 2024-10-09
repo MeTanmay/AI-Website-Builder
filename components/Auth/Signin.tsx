@@ -3,12 +3,52 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation"; // Import useRouter from next/navigation
+import { login, sendPasswordResetEmailF } from "@/utils/auth";
 
 const Signin = () => {
+  const router = useRouter();
   const [data, setData] = useState({
     email: "",
     password: "",
   });
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleLogin = async (event: any) => {
+    event.preventDefault();
+    setLoading(true);
+    if (!email || !password) {
+      toast.error("Please fill all the fields");
+      return;
+    }
+    const toastID = toast.loading("Logging in...");
+    const result = await login(email, password);
+    if (result.status === "success") {
+      // console.log("User logged in successfully:", result.user);
+      toast.success("Logged in successfully!");
+      toast.dismiss(toastID);
+      router.push("/");
+    } else {
+      console.error("Login failed:", result.error);
+      toast.error(result.error);
+      toast.dismiss(toastID);
+    }
+    setLoading(false);
+  };
+
+  const resetPassword = async () => {
+    if (email === "") {
+      toast.error("Please enter your email");
+      return;
+    }
+    sendPasswordResetEmailF(email);
+    toast.success("Password reset email sent successfully");
+  };
 
   return (
     <>
@@ -121,14 +161,19 @@ const Signin = () => {
               <span className="dark:bg-stroke-dark hidden h-[1px] w-full max-w-[200px] bg-stroke dark:bg-strokedark sm:block"></span>
             </div>
 
-            <form>
+            {/* Error message display */}
+            {error && <p className="text-center text-red-500">{error}</p>}
+
+            <form onSubmit={handleLogin}>
               <div className="mb-7.5 flex flex-col gap-7.5 lg:mb-12.5 lg:flex-row lg:justify-between lg:gap-14">
                 <input
                   type="text"
                   placeholder="Email"
                   name="email"
-                  value={data.email}
-                  onChange={(e) => setData({ ...data, email: e.target.value })}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  // value={data.email}
+                  // onChange={(e) => setData({ ...data, email: e.target.value })}
                   className="w-full border-b border-stroke !bg-white pb-3.5 focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:!bg-black dark:focus:border-manatee dark:focus:placeholder:text-white lg:w-1/2"
                 />
 
@@ -136,10 +181,12 @@ const Signin = () => {
                   type="password"
                   placeholder="Password"
                   name="password"
-                  value={data.password}
-                  onChange={(e) =>
-                    setData({ ...data, password: e.target.value })
-                  }
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  // value={data.password}
+                  // onChange={(e) =>
+                  //   setData({ ...data, password: e.target.value })
+                  // }
                   className="w-full border-b border-stroke !bg-white pb-3.5 focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:!bg-black dark:focus:border-manatee dark:focus:placeholder:text-white lg:w-1/2"
                 />
               </div>
@@ -152,7 +199,7 @@ const Signin = () => {
                       type="checkbox"
                       className="peer sr-only"
                     />
-                    <span className="border-gray-300 bg-gray-100 text-blue-600 dark:border-gray-600 dark:bg-gray-700 group mt-1 flex h-5 min-w-[20px] items-center justify-center rounded peer-checked:bg-primary">
+                    <span className="group mt-1 flex h-5 min-w-[20px] items-center justify-center rounded border-gray-300 bg-gray-100 text-blue-600 peer-checked:bg-primary dark:border-gray-600 dark:bg-gray-700">
                       <svg
                         className="opacity-0 peer-checked:group-[]:opacity-100"
                         width="10"
@@ -183,8 +230,10 @@ const Signin = () => {
                 </div>
 
                 <button
+                  type="submit"
                   aria-label="login with email and password"
                   className="inline-flex items-center gap-2.5 rounded-full bg-black px-6 py-3 font-medium text-white duration-300 ease-in-out hover:bg-blackho dark:bg-btndark dark:hover:bg-blackho"
+                  disabled={loading}
                 >
                   Log in
                   <svg

@@ -3,14 +3,62 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { signup } from "@/utils/auth"; // Import signUp function
+
+import { useRouter } from "next/navigation"; // Import useRouter from next/navigation
 
 const Signup = () => {
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter();
+
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
+
+  const handleSignup = async () => {
+    if (
+      data.password !== data.confirmPassword ||
+      !data.firstName ||
+      !data.lastName ||
+      !data.email ||
+      !data.password
+    ) {
+      toast.error("Fill All the fields");
+      return;
+    }
+    const toastID = toast.loading("Signing up...");
+    const result = await signup(
+      data.firstName,
+      data.lastName,
+      data.email,
+      data.password
+    );
+
+    if (result.status === "success") {
+      // console.log("User signed up successfully:", result.user);
+      toast.success("Signed up successfully!");
+      toast.dismiss(toastID);
+      router.push("/");
+    } else {
+      console.error("Signup failed:", result.error);
+      toast.error(result.error);
+      toast.dismiss(toastID);
+    }
+  };
+
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
 
   return (
     <>
@@ -123,16 +171,17 @@ const Signup = () => {
               <span className="dark:bg-stroke-dark hidden h-[1px] w-full max-w-[200px] bg-stroke dark:bg-strokedark sm:block"></span>
             </div>
 
-            <form>
+            {/* <form> */}
               <div className="mb-7.5 flex flex-col gap-7.5 lg:mb-12.5 lg:flex-row lg:justify-between lg:gap-14">
                 <input
                   name="firstName"
                   type="text"
                   placeholder="First name"
                   value={data.firstName}
-                  onChange={(e) =>
-                    setData({ ...data, [e.target.name]: e.target.value })
-                  }
+                  // onChange={(e) =>
+                  //   setData({ ...data, [e.target.name]: e.target.value })
+                  // }
+                  onChange={handleChange}
                   className="w-full border-b border-stroke bg-transparent pb-3.5 focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:focus:border-manatee dark:focus:placeholder:text-white lg:w-1/2"
                 />
 
@@ -141,9 +190,10 @@ const Signup = () => {
                   type="text"
                   placeholder="Last name"
                   value={data.lastName}
-                  onChange={(e) =>
-                    setData({ ...data, [e.target.name]: e.target.value })
-                  }
+                  // onChange={(e) =>
+                  //   setData({ ...data, [e.target.name]: e.target.value })
+                  // }
+                  onChange={handleChange}
                   className="w-full border-b border-stroke bg-transparent pb-3.5 focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:focus:border-manatee dark:focus:placeholder:text-white lg:w-1/2"
                 />
               </div>
@@ -154,9 +204,10 @@ const Signup = () => {
                   type="email"
                   placeholder="Email address"
                   value={data.email}
-                  onChange={(e) =>
-                    setData({ ...data, [e.target.name]: e.target.value })
-                  }
+                  // onChange={(e) =>
+                  //   setData({ ...data, [e.target.name]: e.target.value })
+                  // }
+                  onChange={handleChange}
                   className="w-full border-b border-stroke bg-transparent pb-3.5 focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:focus:border-manatee dark:focus:placeholder:text-white lg:w-1/2"
                 />
 
@@ -165,9 +216,22 @@ const Signup = () => {
                   type="password"
                   placeholder="Password"
                   value={data.password}
-                  onChange={(e) =>
-                    setData({ ...data, [e.target.name]: e.target.value })
-                  }
+                  // onChange={(e) =>
+                  //   setData({ ...data, [e.target.name]: e.target.value })
+                  // }
+                  onChange={handleChange}
+                  className="w-full border-b border-stroke bg-transparent pb-3.5 focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:focus:border-manatee dark:focus:placeholder:text-white lg:w-1/2"
+                />
+
+                <input
+                  name="confirmPassword"
+                  type="password"
+                  placeholder="Confirm Password"
+                  value={data.confirmPassword}
+                  // onChange={(e) =>
+                  //   setData({ ...data, [e.target.name]: e.target.value })
+                  // }
+                  onChange={handleChange}
                   className="w-full border-b border-stroke bg-transparent pb-3.5 focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:focus:border-manatee dark:focus:placeholder:text-white lg:w-1/2"
                 />
               </div>
@@ -179,7 +243,7 @@ const Signup = () => {
                     type="checkbox"
                     className="peer sr-only"
                   />
-                  <span className="border-gray-300 bg-gray-100 text-blue-600 dark:border-gray-600 dark:bg-gray-700 group mt-1 flex h-5 min-w-[20px] items-center justify-center rounded peer-checked:bg-primary">
+                  <span className="group mt-1 flex h-5 min-w-[20px] items-center justify-center rounded border-gray-300 bg-gray-100 text-blue-600 peer-checked:bg-primary dark:border-gray-600 dark:bg-gray-700">
                     <svg
                       className="opacity-0 peer-checked:group-[]:opacity-100"
                       width="10"
@@ -205,6 +269,8 @@ const Signup = () => {
                 </div>
 
                 <button
+                  type="submit"
+                  onClick={handleSignup}
                   aria-label="signup with email and password"
                   className="inline-flex items-center gap-2.5 rounded-full bg-black px-6 py-3 font-medium text-white duration-300 ease-in-out hover:bg-blackho dark:bg-btndark dark:hover:bg-blackho"
                 >
@@ -236,7 +302,7 @@ const Signup = () => {
                   </Link>
                 </p>
               </div>
-            </form>
+            {/* </form> */}
           </motion.div>
         </div>
       </section>
