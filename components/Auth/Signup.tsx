@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { signup } from "@/utils/auth"; // Import signUp function
+import { signup , googleSignup , signUpWithGithub} from "@/utils/auth"; // Import signUp function
 
 import { useRouter } from "next/navigation"; // Import useRouter from next/navigation
 
@@ -47,6 +47,35 @@ const Signup = () => {
       router.push("/");
     } else {
       console.error("Signup failed:", result.error);
+      toast.error(result.error);
+      toast.dismiss(toastID);
+    }
+  };
+
+
+  const handleGoogleSignup = async () => {
+    const toastID = toast.loading("Signing up with Google...");
+    const result = await googleSignup();
+
+    if (result.status === "success") {
+      toast.success("Signed up with Google successfully!");
+      toast.dismiss(toastID);
+      router.push("/");
+    } else {
+      toast.error(result.error);
+      toast.dismiss(toastID);
+    }
+  };
+
+  const handleGithubSignup = async () => {
+    const toastID = toast.loading("Signing up with GitHub...");
+    const result = await signUpWithGithub();
+
+    if (result.status === "success") {
+      toast.success("Signed up with GitHub successfully!");
+      toast.dismiss(toastID);
+      router.push("/");
+    } else {
       toast.error(result.error);
       toast.dismiss(toastID);
     }
@@ -105,6 +134,7 @@ const Signup = () => {
 
             <div className="flex items-center gap-8">
               <button
+                onClick={handleGoogleSignup}
                 aria-label="signup with google"
                 className="text-body-color dark:text-body-color-dark dark:shadow-two mb-6 flex w-full items-center justify-center rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none transition-all duration-300 hover:border-primary hover:bg-primary/5 hover:text-primary dark:border-transparent dark:bg-[#2C303B] dark:hover:border-primary dark:hover:bg-primary/5 dark:hover:text-primary dark:hover:shadow-none"
               >
@@ -145,6 +175,7 @@ const Signup = () => {
               </button>
 
               <button
+                onClick={handleGithubSignup}
                 aria-label="signup with github"
                 className="text-body-color dark:text-body-color-dark dark:shadow-two mb-6 flex w-full items-center justify-center rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none transition-all duration-300 hover:border-primary hover:bg-primary/5 hover:text-primary dark:border-transparent dark:bg-[#2C303B] dark:hover:border-primary dark:hover:bg-primary/5 dark:hover:text-primary dark:hover:shadow-none"
               >

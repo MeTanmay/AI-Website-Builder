@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation"; // Import useRouter from next/navigation
-import { login, sendPasswordResetEmailF } from "@/utils/auth";
+import { login, signInWithGoogle, signInWithGithub , sendPasswordResetEmailF } from "@/utils/auth";
 
 const Signin = () => {
   const router = useRouter();
@@ -35,6 +35,36 @@ const Signin = () => {
       router.push("/");
     } else {
       console.error("Login failed:", result.error);
+      toast.error(result.error);
+      toast.dismiss(toastID);
+    }
+    setLoading(false);
+  };
+
+  const handleGoogleSignIn = async () => {
+    setLoading(true);
+    const toastID = toast.loading("Signing in with Google...");
+    const result = await signInWithGoogle();
+    if (result.status === "success") {
+      toast.success("Signed in successfully!");
+      toast.dismiss(toastID);
+      router.push("/");
+    } else {
+      toast.error(result.error);
+      toast.dismiss(toastID);
+    }
+    setLoading(false);
+  };
+
+  const handleGitHubSignIn = async () => {
+    setLoading(true);
+    const toastID = toast.loading("Signing in with GitHub...");
+    const result = await signInWithGithub();
+    if (result.status === "success") {
+      toast.success("Signed in successfully!");
+      toast.dismiss(toastID);
+      router.push("/");
+    } else {
       toast.error(result.error);
       toast.dismiss(toastID);
     }
@@ -95,6 +125,8 @@ const Signin = () => {
             <div className="flex flex-col">
               <div className="flex items-center gap-8">
                 <button
+                  onClick={handleGoogleSignIn}
+                  disabled={loading}
                   aria-label="sign with google"
                   className="text-body-color dark:text-body-color-dark dark:shadow-two mb-6 flex w-full items-center justify-center rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none transition-all duration-300 hover:border-primary hover:bg-primary/5 hover:text-primary dark:border-transparent dark:bg-[#2C303B] dark:hover:border-primary dark:hover:bg-primary/5 dark:hover:text-primary dark:hover:shadow-none"
                 >
@@ -135,6 +167,8 @@ const Signin = () => {
                 </button>
 
                 <button
+                  onClick={handleGitHubSignIn}
+                  disabled={loading}
                   aria-label="signup with github"
                   className="text-body-color dark:text-body-color-dark dark:shadow-two mb-6 flex w-full items-center justify-center rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none transition-all duration-300 hover:border-primary hover:bg-primary/5 hover:text-primary dark:border-transparent dark:bg-[#2C303B] dark:hover:border-primary dark:hover:bg-primary/5 dark:hover:text-primary dark:hover:shadow-none"
                 >

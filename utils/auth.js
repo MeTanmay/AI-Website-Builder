@@ -3,10 +3,13 @@ import {
     createUserWithEmailAndPassword,
     updateProfile,
     signOut,
+    signInWithPopup,
+    GoogleAuthProvider,
+    GithubAuthProvider,
     signInWithEmailAndPassword,
     sendPasswordResetEmail,
   } from "firebase/auth";
-  import { app } from "./firebase";  // Ensure this path is correct
+  import { app , googleProvider} from "./firebase";  // Ensure this path is correct
   import { doc, setDoc } from "firebase/firestore";
   import { db } from "./firebase";  // Adjusted path to point to firebase.js properly
   
@@ -56,6 +59,85 @@ import {
       };
     }
   }
+
+
+  export async function googleSignup() {
+    try {
+      const userCredential = await signInWithPopup(auth, googleProvider);
+      const user = userCredential.user;
+  
+      await setDoc(doc(db, "users", user.uid), {
+        email: user.email,
+        displayName: user.displayName,
+      });
+  
+      return {
+        user: user,
+        status: "success",
+      };
+    } catch (error) {
+      return {
+        user: null,
+        status: "error",
+        error: error.message,
+      };
+    }
+  }
+
+  export const signInWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      return {
+        status: "success",
+        user
+      };
+    } catch (error) {
+      console.error("Google sign-in error:", error.message);
+      return {
+        status: "error",
+        error: error.message
+      };
+    }
+  };
+
+
+export const signUpWithGithub = async () => {
+    const provider = new GithubAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      return {
+        status: "success",
+        user
+      };
+    } catch (error) {
+      console.error("GitHub sign-up error:", error.message);
+      return {
+        status: "error",
+        error: error.message
+      };
+    }
+  };
+
+  export const signInWithGithub = async () => {
+    const provider = new GithubAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      return {
+        status: "success",
+        user
+      };
+    } catch (error) {
+      console.error("GitHub sign-in error:", error.message);
+      return {
+        status: "error",
+        error: error.message
+      };
+    }
+  };
   
   export async function sendPasswordResetEmailF(email) {
     try {
