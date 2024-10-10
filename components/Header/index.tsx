@@ -3,15 +3,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-
+import { auth } from "@/utils/firebase"; // Import Firebase auth
+import { SignOut } from "@/utils/auth"; // Import signOut function
+import { onAuthStateChanged } from "firebase/auth"; // Listen to auth state changes
 import ThemeToggler from "./ThemeToggler";
 import menuData from "./menuData";
+import { User } from "firebase/auth";
 
 const Header = () => {
   const [navigationOpen, setNavigationOpen] = useState(false);
   const [dropdownToggler, setDropdownToggler] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
-
+  const [user, setUser] = useState<User | null>(null);
   const pathUrl = usePathname();
 
   // Sticky menu
@@ -25,7 +28,21 @@ const Header = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", handleStickyMenu);
-  });
+
+    // Listen to auth state changes
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user); // Set user if authenticated
+      } else {
+        setUser(null); // Clear user if not authenticated
+      }
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleStickyMenu);
+      unsubscribe(); // Clean up listener on unmount
+    };
+  }, []);
 
   return (
     <header
@@ -95,7 +112,7 @@ const Header = () => {
           {/* <!-- Hamburger Toggle BTN --> */}
         </div>
 
-        {/* Nav Menu Start   */}
+        {/* Nav Menu Start */}
         <div
           className={`invisible h-0 w-full items-center justify-between xl:visible xl:flex xl:h-auto xl:w-full ${
             navigationOpen &&
@@ -154,26 +171,40 @@ const Header = () => {
           <div className="mt-7 flex items-center gap-3 xl:mt-0">
             <ThemeToggler />
 
-            <Link
-              href="/auth/signin"
-              className="  text-regular font-medium rounded-full px-6 py-2.5 text-waterloo hover:text-white  hover:bg-primary"
-            >
-              Sign In
-            </Link>
-
-            <Link
-              href="/auth/signup"
-              className="rounded-full hover:bg-primary px-6 py-2.5 text-regular text-waterloo ease-in-out hover:text-white"
-            >
-              Sign Up
-            </Link>
+            {/* Show Sign In/Sign Up if user is not logged in */}
+            {!user ? (
+              <>
+                <Link
+                  href="/auth/signin"
+                  className="rounded-full px-6 py-2.5 text-regular font-medium text-waterloo hover:bg-primary  hover:text-white"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/auth/signup"
+                  className="rounded-full bg-primary px-6 py-2.5 text-regular text-white ease-in-out"
+                >
+                  Sign Up
+                </Link>
+              </>
+            ) : (
+              <>
+                <span className="font-medium text-waterloo">
+                  {user.displayName || user.email}
+                </span>
+                <button
+                  onClick={SignOut}
+                  className="rounded-full bg-primary px-6 py-2.5 text-regular text-white ease-in-out"
+                >
+                  Sign Out
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>
     </header>
   );
 };
-
-// w-full delay-300
 
 export default Header;
