@@ -9,6 +9,7 @@ import {
     signInWithEmailAndPassword,
     sendPasswordResetEmail,
   } from "firebase/auth";
+  import toast from "react-hot-toast";
   import { app , googleProvider} from "./firebase";  // Ensure this path is correct
   import { doc, setDoc } from "firebase/firestore";
   import { db } from "./firebase";  // Adjusted path to point to firebase.js properly
@@ -157,5 +158,6 @@ export const signUpWithGithub = async () => {
   
   export const SignOut = () => {
     signOut(auth);
+    toast.success("Signout successfully!");
   };
   
