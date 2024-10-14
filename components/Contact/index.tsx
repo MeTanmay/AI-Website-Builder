@@ -153,8 +153,8 @@ const Contact = () => {
                       htmlFor="default-checkbox"
                       className="flex max-w-[425px] cursor-pointer select-none pl-5"
                     >
-                      By clicking Checkbox, you agree to use our “Form” terms
-                      And consent cookie usage in browser.
+                      By clicking checkbox agree terms
+                      and consent cookie usage in browser.
                     </label>
                   </div>
 
@@ -208,8 +208,7 @@ const Contact = () => {
                   Our Loaction
                 </h3>
                 <p>
-                  Pune, Maharashtra,
-                  <br /> 411002, India
+                  Pune, India
                 </p>
               </div>
               <div className="5 mb-7">

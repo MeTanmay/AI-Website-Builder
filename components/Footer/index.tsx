@@ -46,18 +46,18 @@ const Footer = () => {
                 </a>
 
                 <p className="mb-10 mt-5">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  AI Website Builder
                 </p>
 
-                <p className="mb-1.5 text-sectiontitle uppercase tracking-[5px]">
+                {/* <p className="mb-1.5 text-sectiontitle uppercase tracking-[5px]">
                   contact
                 </p>
                 <a
                   href="#"
                   className="text-itemtitle font-medium text-black dark:text-white"
                 >
-                  hello@solid.com
-                </a>
+                  contact@aibuilder.com
+                </a> */}
               </motion.div>
 
               <div className="flex w-full flex-col gap-8 md:flex-row md:justify-between md:gap-0 lg:w-2/3 xl:w-7/12">
@@ -263,7 +263,7 @@ const Footer = () => {
               viewport={{ once: true }}
               className="animate_top"
             >
-              <ul className="flex items-center gap-8">
+              {/* <ul className="flex items-center gap-8">
                 <li>
                   <a href="#" className="hover:text-primary">
                     English
@@ -279,7 +279,7 @@ const Footer = () => {
                     Support
                   </a>
                 </li>
-              </ul>
+              </ul> */}
             </motion.div>
 
             <motion.div
@@ -396,7 +396,7 @@ const Footer = () => {
                     </svg>
                   </a>
                 </li>
-                <li>
+                {/* <li>
                   <a href="#" aria-label="social icon">
                     <svg
                       className="fill-[#D1D8E0] transition-all duration-300 hover:fill-primary"
@@ -415,7 +415,7 @@ const Footer = () => {
                       </defs>
                     </svg>
                   </a>
-                </li>
+                </li> */}
               </ul>
             </motion.div>
           </div>
