@@ -6,7 +6,7 @@ const BlogData: Blog[] = [
     mainImage: "/images/blog/blog-01.png",
     title: "E-commerce Templates",
     metadata:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit convallis tortor.",
+      "Different E-commerce templates",
   },
   {
     _id: 2,
