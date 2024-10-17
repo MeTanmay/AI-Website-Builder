@@ -1,7 +1,9 @@
 import { app } from "./firebase";
 import { getFirestore } from "firebase/firestore";
 export const db = getFirestore(app);
-import { collection, getDocs } from "firebase/firestore";
+import { addDoc,collection, getDocs } from "firebase/firestore";
+import {toast ,Toaster} from "react-hot-toast";
+
 import {
   query,
   orderBy,
@@ -63,4 +65,38 @@ export const GetUsersInfo = async (page = 1, limi = 50, lastVisible = null) => {
     };
   }
 };
+
+
+function formatDate(date) {
+    let datePart = [
+        date.getMonth() + 1,
+        date.getDate(),
+        date.getFullYear()
+    ].map((n, i) => n.toString().padStart(i === 2 ? 4 : 2, "0")).join("/");
+    let timePart = [
+        date.getHours(),
+        date.getMinutes(),
+        date.getSeconds()
+    ].map((n, i) => n.toString().padStart(2, "0")).join(":");
+    return datePart + " " + timePart;
+}
+
+export const addData = async (name, email, subject, phoneno, message) => {
+    const s = toast.loading("Submitting Request!");
+
+    const pr = await addDoc(collection(db, "contact"), {
+        name: name,
+        email: email,
+        subject: subject,
+        phoneno: phoneno,
+        message: message,
+        createdAt: formatDate(new Date())
+    });
+
+    toast.dismiss(s);
+    toast.success('Successfully submitted!');
+    toast.success('We will contact you soon!');
+};
+
+
 

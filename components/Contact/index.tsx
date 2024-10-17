@@ -2,23 +2,46 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React from "react";
+import { useForm } from "react-hook-form";
+import { addData } from "@/utils/firestore";
+
+type FormValues = {
+  name: string;
+  email: string;
+  subject: string;
+  phoneno: Number;
+  message: String;
+};
 
 const Contact = () => {
-  /**
-   * Source: https://www.joshwcomeau.com/react/the-perils-of-rehydration/
-   * Reason: To fix rehydration error
-   */
-  const [hasMounted, setHasMounted] = React.useState(false);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    formState,
+    formState: { isSubmitSuccessful, errors },
+  } = useForm<FormValues>();
+
+  const onSubmit = async (data: FormValues) => {
+    console.log(data.name);
+    await addData(
+      data.name,
+      data.email,
+      data.subject,
+      data.phoneno,
+      data.message,
+    );
+  };
   React.useEffect(() => {
-    setHasMounted(true);
-  }, []);
-  if (!hasMounted) {
-    return null;
-  }
+    if (formState.isSubmitSuccessful) {
+      reset({ name: "", email: "", subject: "", phoneno: "", message: "" });
+    }
+  }, [formState, reset]);
 
   return (
     <>
-      {/* <!-- ===== Contact Start ===== --> */}
+      
       <section id="support" className="px-4 md:px-8 2xl:px-0">
         <div className="relative mx-auto max-w-c-1390 px-7.5 pt-10 lg:px-15 lg:pt-15 xl:px-20 xl:pt-20">
           <div className="absolute left-0 top-0 -z-1 h-2/3 w-full rounded-lg bg-gradient-to-t from-transparent to-[#dee7ff47] dark:bg-gradient-to-t dark:to-[#252A42]"></div>
@@ -60,21 +83,20 @@ const Contact = () => {
                 Send a message
               </h2>
 
-              <form
-                action="https://formbold.com/s/unique_form_id"
-                method="POST"
-              >
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-7.5 flex flex-col gap-7.5 lg:flex-row lg:justify-between lg:gap-14">
                   <input
                     type="text"
                     placeholder="Full name"
                     className="w-full border-b border-stroke bg-transparent pb-3.5 focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:focus:border-manatee dark:focus:placeholder:text-white lg:w-1/2"
+                    {...register("name", { required: true, maxLength: 280 })}
                   />
 
                   <input
                     type="email"
                     placeholder="Email address"
                     className="w-full border-b border-stroke bg-transparent pb-3.5 focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:focus:border-manatee dark:focus:placeholder:text-white lg:w-1/2"
+                    {...register("email", { required: true, maxLength: 280 })}
                   />
                 </div>
 
@@ -83,12 +105,14 @@ const Contact = () => {
                     type="text"
                     placeholder="Subject"
                     className="w-full border-b border-stroke bg-transparent pb-3.5 focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:focus:border-manatee dark:focus:placeholder:text-white lg:w-1/2"
+                    {...register("subject", { required: true, maxLength: 280 })}
                   />
 
                   <input
-                    type="text"
+                    type="tel"
                     placeholder="Phone number"
                     className="w-full border-b border-stroke bg-transparent pb-3.5 focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:focus:border-manatee dark:focus:placeholder:text-white lg:w-1/2"
+                    {...register("phoneno", { required: true, maxLength: 280 })}
                   />
                 </div>
 
@@ -97,6 +121,7 @@ const Contact = () => {
                     placeholder="Message"
                     rows={4}
                     className="w-full border-b border-stroke bg-transparent focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:focus:border-manatee dark:focus:placeholder:text-white"
+                    {...register("message", { required: true, maxLength: 280 })}
                   ></textarea>
                 </div>
 
@@ -105,9 +130,9 @@ const Contact = () => {
                     <input
                       id="default-checkbox"
                       type="checkbox"
-                      className="peer sr-only"
+                      className="peer sr-only cursor-pointer"
                     />
-                    <span className="border-gray-300 bg-gray-100 text-blue-600 dark:border-gray-600 dark:bg-gray-700 group mt-2 flex h-5 min-w-[20px] items-center justify-center rounded peer-checked:bg-primary">
+                    <span className="group mt-2 flex h-5 min-w-[20px] items-center justify-center rounded border-gray-300 bg-gray-100 text-blue-600 peer-checked:bg-primary dark:border-gray-600 dark:bg-gray-700">
                       <svg
                         className="opacity-0 peer-checked:group-[]:opacity-100"
                         width="10"
@@ -128,8 +153,8 @@ const Contact = () => {
                       htmlFor="default-checkbox"
                       className="flex max-w-[425px] cursor-pointer select-none pl-5"
                     >
-                      By clicking Checkbox, you agree to use our “Form” terms
-                      And consent cookie usage in browser.
+                      By clicking checkbox agree terms
+                      and consent cookie usage in browser.
                     </label>
                   </div>
 
@@ -175,36 +200,38 @@ const Contact = () => {
               className="animate_top w-full md:w-2/5 md:p-7.5 lg:w-[26%] xl:pt-15"
             >
               <h2 className="mb-12.5 text-3xl font-semibold text-black dark:text-white xl:text-sectiontitle2">
-                Find us
+                Find Us
               </h2>
 
               <div className="5 mb-7">
                 <h3 className="mb-4 text-metatitle3 font-medium text-black dark:text-white">
                   Our Loaction
                 </h3>
-                <p>290 Maryam Springs 260, Courbevoie, Paris, France</p>
+                <p>
+                  Pune, India
+                </p>
               </div>
               <div className="5 mb-7">
                 <h3 className="mb-4 text-metatitle3 font-medium text-black dark:text-white">
                   Email Address
                 </h3>
                 <p>
-                  <a href="#">yourmail@domainname.com</a>
+                  <a href="mailto:contact@opemic.com">contact@aibuilder.com</a>
                 </p>
               </div>
-              <div>
+              {/* <div>
                 <h4 className="mb-4 text-metatitle3 font-medium text-black dark:text-white">
                   Phone Number
                 </h4>
                 <p>
-                  <a href="#">+009 42334 6343 843</a>
+                  <a href="#">+91 42336 34383</a>
                 </p>
-              </div>
+              </div> */}
             </motion.div>
           </div>
         </div>
       </section>
-      {/* <!-- ===== Contact End ===== --> */}
+      
     </>
   );
 };
