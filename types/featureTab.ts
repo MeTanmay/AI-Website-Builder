@@ -5,4 +5,6 @@ export type FeatureTab = {
   desc2: string;
   image: string;
   imageDark: string;
+  width:number;
+  height:number;
 };
