@@ -3,46 +3,48 @@ import { Blog } from "@/types/blog";
 const BlogData: Blog[] = [
   {
     _id: 1,
-    mainImage: "/images/blog/blog-01.png",
-    title: "E-commerce Templates",
+    mainImage: "/images/blog/BusinessAndServices.png",
+    title: "Business and Services",
     metadata:
-      "Different E-commerce templates",
+      "Design business and service websites to showcase offerings and connect with clients.",
   },
   {
     _id: 2,
-    mainImage: "/images/blog/blog-02.png",
-    title: "9 simple ways to improve your design skills",
+    mainImage: "/images/blog/Lifestyle.png",
+    title: "Lifestyle",
     metadata:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit convallis tortor.",
+      "Craft lifestyle websites to share trends, inspiration, and personal content.",
   },
   {
     _id: 2,
-    mainImage: "/images/blog/blog-03.png",
-    title: "Tips to quickly improve your coding speed.",
+    mainImage: "/images/blog/DigitalBusinessCard.png",
+    title: "Digital Business Cards",
     metadata:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit convallis tortor.",
+      "Build sleek, modern digital business card websites for instant professional connections.",
   },
   {
     _id: 1,
-    mainImage: "/images/blog/blog-03.png",
-    title: "Free advertising for your online business",
+    mainImage: "/images/blog/Marketing.png",
+    title: "Marketing",
     metadata:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit convallis tortor.",
+      "Create impactful marketing websites to boost brand visibility and drive engagement.",
   },
   {
     _id: 2,
-    mainImage: "/images/blog/blog-04.png",
-    title: "9 simple ways to improve your design skills",
+    mainImage: "/images/blog/Blog.png",
+    title: "Blog",
     metadata:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit convallis tortor.",
+      "Build blog websites to share ideas, insights, and stories across diverse topics.",
   },
   {
     _id: 2,
-    mainImage: "/images/blog/blog-01.png",
-    title: "Tips to quickly improve your coding speed.",
+    mainImage: "/images/blog/Education.jpeg",
+    title: "Education",
     metadata:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit convallis tortor.",
+      " Develop education websites for learning platforms, schools, or educational resources.",
   },
+  
+  
 ];
 
 export default BlogData;
