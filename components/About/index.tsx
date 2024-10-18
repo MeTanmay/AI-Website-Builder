@@ -63,17 +63,16 @@ const About = () => {
                 <span className="mb-4 mr-4 inline-flex rounded-full bg-meta px-4.5 py-1 text-metatitle uppercase text-white ">
                   New
                 </span>{" "}
-                SaaS Boilerplate for Next.js
+                Empowering Your Vision
               </span>
               <h2 className="relative mb-6 text-3xl font-bold text-black dark:text-white xl:text-hero">
-                A Complete Solution for
+                       
                 <span className="relative inline-block before:absolute before:bottom-2.5 before:left-0 before:-z-1 before:h-3 before:w-full before:bg-titlebg dark:before:bg-titlebgdark">
-                  SaaS Startup
+                  Build Stunning Websites with AI Effortlessly.
                 </span>
               </h2>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                ultricies lacus non fermentum ultrices. Fusce consectetur le.
+              Transform your ideas into reality with seamless website creation and innovative design.
               </p>
 
               <div className="mt-7.5 flex items-center gap-5">
@@ -84,9 +83,9 @@ const About = () => {
                 </div>
                 <div className="w-3/4">
                   <h3 className="mb-0.5 text-metatitle2 text-black dark:text-white">
-                    React 18, Next.js 13 and TypeScript
+                  Create with Confidence: AI-Powered Website Creation
                   </h3>
-                  <p>Ut ultricies lacus non fermentum ultrices.</p>
+                  {/* <p>Ut ultricies lacus non fermentum ultrices.</p> */}
                 </div>
               </div>
               <div className="mt-7.5 flex items-center gap-5">
@@ -97,9 +96,9 @@ const About = () => {
                 </div>
                 <div className="w-3/4">
                   <h3 className="mb-0.5 text-metatitle2 text-black dark:text-white">
-                    Fully Customizable
+                  Code at Your Fingertips: Download and Customize
                   </h3>
-                  <p>consectetur adipiscing elit fermentum ultricies.</p>
+                  {/* <p>consectetur adipiscing elit fermentum ultricies.</p> */}
                 </div>
               </div>
             </motion.div>
@@ -109,7 +108,7 @@ const About = () => {
       {/* <!-- ===== About End ===== --> */}
 
       {/* <!-- ===== About Two Start ===== --> */}
-      <section>
+      {/* <section>
         <div className="mx-auto max-w-c-1235 overflow-hidden px-4 md:px-8 2xl:px-0">
           <div className="flex items-center gap-8 lg:gap-32.5">
             <motion.div
@@ -195,7 +194,7 @@ const About = () => {
             </motion.div>
           </div>
         </div>
-      </section>
+      </section> */}
       {/* <!-- ===== About Two End ===== --> */}
     </>
   );
