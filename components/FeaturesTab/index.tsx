@@ -57,13 +57,13 @@ const FeaturesTab = () => {
               }`}
             >
               <div className="flex h-12.5 w-12.5 items-center justify-center rounded-[50%] border border-stroke dark:border-strokedark dark:bg-blacksection">
-                <p className="text-metatitle3 font-medium text-black dark:text-white">
+                <p className="text-metatitle3 font-medium text-black dark:text-white ">
                   01
                 </p>
               </div>
               <div className="md:w-3/5 lg:w-auto">
                 <button className="text-sm font-medium text-black dark:text-white xl:text-regular">
-                  Clean User Interface
+                  Web
                 </button>
               </div>
             </div>
@@ -82,7 +82,7 @@ const FeaturesTab = () => {
               </div>
               <div className="md:w-3/5 lg:w-auto">
                 <button className="text-sm font-medium text-black dark:text-white xl:text-regular">
-                  Essential Business Pages
+                  Tablet
                 </button>
               </div>
             </div>
@@ -101,7 +101,7 @@ const FeaturesTab = () => {
               </div>
               <div className="md:w-3/5 lg:w-auto">
                 <button className="text-sm font-medium text-black dark:text-white xl:text-regular">
-                  Fully Functional Integrations
+                  Mobile
                 </button>
               </div>
             </div>
