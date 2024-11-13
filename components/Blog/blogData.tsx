@@ -3,7 +3,7 @@ import { Blog } from "@/types/blog";
 const BlogData: Blog[] = [
   {
     _id: 1,
-    mainImage: "/images/blog/logoipsum.png",
+    mainImage: "/images/blog/temp-1.png",
     title: "SaaS Starter",
     metadata:
       "Next.js template to make your life easier while building a powerful and great look",
