@@ -13,6 +13,8 @@ export type Blog = {
   metadata?: string;
   body?: string;
   mainImage?: any;
+  demoLink?:any;
+  downloadLink?:any;
   author?: Author;
   tags?: string[];
   publishedAt?: string;
