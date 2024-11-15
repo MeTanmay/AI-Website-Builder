@@ -19,12 +19,12 @@ const menuData: Menu[] = [
     newTab: false,
     path: "/blog",
   },
-  {
-    id: 2.3,
-    title: "Docs",
-    newTab: false,
-    path: "/docs",
-  },
+  // {
+  //   id: 2.3,
+  //   title: "Docs",
+  //   newTab: false,
+  //   path: "/docs",
+  // },
   {
     id: 3,
     title: "Pages",
@@ -32,7 +32,7 @@ const menuData: Menu[] = [
     submenu: [
       {
         id: 31,
-        title: "Blog Grid",
+        title: "Templates",
         newTab: false,
         path: "/blog",
       },
@@ -48,12 +48,12 @@ const menuData: Menu[] = [
       //   newTab: false,
       //   path: "/auth/signup",
       // },
-      {
-        id: 35,
-        title: "Docs",
-        newTab: false,
-        path: "/docs",
-      },
+      // {
+      //   id: 35,
+      //   title: "Docs",
+      //   newTab: false,
+      //   path: "/docs",
+      // },
       // {
       //   id: 35.1,
       //   title: "Support",
