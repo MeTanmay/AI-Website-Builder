@@ -1,13 +1,39 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { auth } from "@/utils/firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { User } from "firebase/auth";
+import Link from "next/link";
 
 const Hero = () => {
-  const [email, setEmail] = useState("");
+  const [user, setUser] = useState<User | null>(null);
+  const [stickyMenu, setStickyMenu] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleStickyMenu = () => {
+    if (window.scrollY >= 80) {
+      setStickyMenu(true);
+    } else {
+      setStickyMenu(false);
+    }
   };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleStickyMenu);
+
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleStickyMenu);
+      unsubscribe();
+    };
+  }, []);
 
   return (
     <>
@@ -30,23 +56,38 @@ const Hero = () => {
               </p>
 
               <div className="mt-10">
-                <form onSubmit={handleSubmit}>
-                  <div className="flex flex-wrap gap-5">
-                    {/* <input
+                <div className="flex flex-wrap gap-5">
+                  {/* <input
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       type="text"
                       placeholder="Enter your email address"
                       className="rounded-full border border-stroke px-6 py-2.5 shadow-solid-2 focus:border-primary focus:outline-none dark:border-strokedark dark:bg-black dark:shadow-none dark:focus:border-primary"
                     /> */}
-                    <button
-                      aria-label="get started button"
-                      className="flex rounded-full bg-black px-7.5 py-2.5 text-white duration-300 ease-in-out hover:bg-blackho dark:bg-btndark dark:hover:bg-blackho"
-                    >
-                      Get Started
-                    </button>
-                  </div>
-                </form>
+                  {!user ? (
+                    <>
+                      <Link href="/auth/signin">
+                        <button
+                          aria-label="get started button"
+                          className="flex rounded-full bg-black px-7.5 py-2.5 text-white duration-300 ease-in-out hover:bg-blackho dark:bg-btndark dark:hover:bg-blackho"
+                        >
+                          Login to Get Started
+                        </button>
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      <a href="https://ai-website-builder2-frontend.onrender.com">
+                        <button
+                          aria-label="get started button"
+                          className="bg-black flex rounded-full px-7.5 py-2.5 text-white duration-300 ease-in-out hover:bg-blackho dark:bg-btndark dark:hover:bg-blackho"
+                        >
+                          Get Started
+                        </button>
+                      </a>
+                    </>
+                  )}
+                </div>
 
                 {/* <p className="mt-5 text-black dark:text-white">
                   Try for free no credit card required.
