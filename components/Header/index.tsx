@@ -189,15 +189,15 @@ const Header = () => {
               </>
             ) : (
               <>
-                <span className="font-medium text-waterloo">
+                {/* <span className="font-medium text-waterloo">
                   {user.displayName || user.email}
-                </span>
-                <button
+                </span> */}
+                {/* <button
                   onClick={SignOut}
                   className="rounded-full bg-primary px-6 py-2.5 text-regular text-white ease-in-out"
                 >
                   Sign Out
-                </button>
+                </button> */}
               </>
             )}
           </div>
