@@ -57,14 +57,15 @@ const Hero = () => {
 
               <div className="mt-10">
                 <div className="flex flex-wrap gap-5">
-                  {/* <input
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      type="text"
-                      placeholder="Enter your email address"
-                      className="rounded-full border border-stroke px-6 py-2.5 shadow-solid-2 focus:border-primary focus:outline-none dark:border-strokedark dark:bg-black dark:shadow-none dark:focus:border-primary"
-                    /> */}
-                  {!user ? (
+                  <a href="https://ai-website-builder2-frontend.onrender.com">
+                    <button
+                      aria-label="get started button"
+                      className="flex rounded-full bg-black px-7.5 py-2.5 text-white duration-300 ease-in-out hover:bg-blackho dark:bg-btndark dark:hover:bg-blackho"
+                    >
+                      Get Started
+                    </button>
+                  </a>
+                  {/* {!user ? (
                     <>
                       <Link href="/auth/signin">
                         <button
@@ -86,7 +87,7 @@ const Hero = () => {
                         </button>
                       </a>
                     </>
-                  )}
+                  )} */}
                 </div>
 
                 {/* <p className="mt-5 text-black dark:text-white">

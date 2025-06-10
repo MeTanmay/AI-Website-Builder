@@ -174,7 +174,7 @@ const Header = () => {
             {/* Show Sign In/Sign Up if user is not logged in */}
             {!user ? (
               <>
-                <Link
+                {/* <Link
                   href="/auth/signin"
                   className="rounded-full px-6 py-2.5 text-regular font-medium text-waterloo hover:bg-primary  hover:text-white"
                 >
@@ -185,7 +185,7 @@ const Header = () => {
                   className="rounded-full bg-primary px-6 py-2.5 text-regular text-white ease-in-out"
                 >
                   Sign Up
-                </Link>
+                </Link> */}
               </>
             ) : (
               <>

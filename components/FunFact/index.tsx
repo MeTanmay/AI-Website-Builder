@@ -59,9 +59,7 @@ const FunFact = () => {
               Trusted by Global Users
             </h2>
             <p className="mx-auto lg:w-11/12">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-              convallis tortor eros. Donec vitae tortor lacus. Phasellus aliquam
-              ante in maximus.
+              Our platform helps people everywhere bring their ideas to life
             </p>
           </motion.div>
 
@@ -108,7 +106,7 @@ const FunFact = () => {
               className="animate_top text-center"
             >
               <h3 className="mb-2.5 text-3xl font-bold text-black dark:text-white xl:text-sectiontitle3">
-                20M+
+                10M+
               </h3>
               <p className="text-lg lg:text-para2">Interactions</p>
             </motion.div>

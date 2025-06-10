@@ -15,7 +15,7 @@ const Feature = () => {
             headerInfo={{
               title: "Features of AI Website Builder",
               subtitle: "Core Features of Solid",
-              description: `AI-powered website generation with templates, drag-and-drop editing, and one-click deployment. Download code and access SEO, analytics, and integration tools.`,
+              description: `AI-powered website generation with templates, editing with reprompting, and one-click deployment. Download code and access SEO, analytics, and integration tools.`,
             }}
           />
           {/* <!-- Section Title End --> */}

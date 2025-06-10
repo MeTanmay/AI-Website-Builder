@@ -17,9 +17,9 @@ const featuresData: Feature[] = [
   {
     id: 3,
     icon: "/images/icon/icon-03.svg",
-    title: "Editing Dashboard",
+    title: "Editing Feature",
     description:
-      "Customize your website with an easy-to-use drag-and-drop editor.",
+      "Customize your website with reprompting.",
   },
   {
     id: 4,
